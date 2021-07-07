@@ -1,0 +1,33 @@
+name: Deploy to DEV
+on:
+  workflow_dispatch:
+  push:
+    branches: 
+      - dev
+      
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - uses: actions/setup-node@v2
+        with: 
+          node-version: '14'
+          check-latest: true
+      - name: Check Server ID Web1
+        if: ${{ fromJSON(steps.get_workflow_vars.outputs).webServer == "WEB1" }}
+        env: 
+          WEB_SERVER: ${{ secrets.IP_WEB1 }}
+
+      - name: Check Server ID Web1
+        if: ${{ fromJSON(steps.get_workflow_vars.outputs).webServer == "WEB2" }}
+        env: 
+          WEB_SERVER: ${{ secrets.IP_WEB2 }}
+
+      - name: Check Server ID Web1
+        if: ${{ fromJSON(steps.get_workflow_vars.outputs).webServer == "WEB3" }}
+        env: 
+          WEB_SERVER: ${{ secrets.IP_WEB3 }}
