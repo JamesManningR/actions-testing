@@ -36,13 +36,13 @@ jobs:
         run: |
           webServerId=${{ fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer }}
 
-          if [[ $webServer == WEB1 ]]; then
+          if [[ $webServerId == WEB1 ]]; then
             echo "WEB_SERVER=$IP_DEV1" >> $GITHUB_ENV
           
-          elif [[ $webServer == WEB2 ]]; then
+          elif [[ $webServerId == WEB2 ]]; then
             echo "WEB_SERVER=$IP_DEV2" >> $GITHUB_ENV
           
-          elif [[ $webServer == WEB3 ]]; then
+          elif [[ $webServerId == WEB3 ]]; then
             echo "WEB_SERVER=$IP_DEV3" >> $GITHUB_ENV
           
           else
