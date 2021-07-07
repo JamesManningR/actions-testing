@@ -34,14 +34,17 @@ jobs:
           WEB_SERVER: ${{ secrets.IP_WEB1 }}
         run: echo "Set web server to Web1"
 
-      - name: Check Server ID Web1
+      - name: Check Server ID Web2
         if: fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer == 'WEB2'
         env: 
           WEB_SERVER: ${{ secrets.IP_WEB2 }}
         run: echo "Set web server to Web2"
 
-      - name: Check Server ID Web1
+      - name: Check Server ID Web3
         if: fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer == 'WEB3'
         env: 
           WEB_SERVER: ${{ secrets.IP_WEB3 }}
         run: echo "Set web server to Web3"
+
+      - name: Echo The JSON
+        run: echo "${{ env.WEB_SERVER }}"
