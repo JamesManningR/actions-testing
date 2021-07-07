@@ -41,7 +41,7 @@ jobs:
             echo "WEB_SERVER=${{ secrets.IP_DEV3 }}" >> $GITHUB_ENV
           
           else
-            set -eo pipefail
+            echo "No Web Server matches"
           fi
 
           echo "Set web server to $WEB_SERVER"
