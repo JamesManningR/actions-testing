@@ -29,16 +29,20 @@ jobs:
         run: echo "${{ fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer }}"
 
       - name: Check Server ID Web1
+        env: 
+          IP_DEV1: secrets.IP_DEV1
+          IP_DEV2: secrets.IP_DEV2
+          IP_DEV3: secrets.IP_DEV3
         run: |
           webServerId=${{ fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer }}
           if [[ $webServer == WEB1 ]]; then
-            echo "WEB_SERVER=${{ secrets.IP_DEV1 }}" >> $GITHUB_ENV
+            echo "WEB_SERVER=$IP_DEV1" >> $GITHUB_ENV
           
           else if [[ $webServer == WEB2 ]]; then
-            echo "WEB_SERVER=${{ secrets.IP_DEV2 }}" >> $GITHUB_ENV
+            echo "WEB_SERVER=$IP_DEV2" >> $GITHUB_ENV
           
           else if [[ $webServer == WEB3 ]]; then
-            echo "WEB_SERVER=${{ secrets.IP_DEV3 }}" >> $GITHUB_ENV
+            echo "WEB_SERVER=$IP_DEV3" >> $GITHUB_ENV
           
           else
             echo "No Web Server matches"
