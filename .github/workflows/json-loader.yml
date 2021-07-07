@@ -10,10 +10,19 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
 
-      - uses: actions/setup-node@v2
-        with: 
-          node-version: '14'
-          check-latest: true
+      - name: ⚙️ Get workflow config from 'workflow.json'
+        id: get_workflow_vars
+        run: |
+          # Load Workflow config file
+          wfconfig=`cat ./workflow.json`
+          
+          # Strip whitespace ---------------
+          wfconfig="${wfconfig//'%'/'%25'}"
+          wfconfig="${wfconfig//$'\n'/'%0A'}"
+          wfconfig="${wfconfig//$'\r'/'%0D'}"
+          
+          #output the wfconfig
+          echo "::set-output name=workflowConfigJson::$wfconfig"
 
       - name: Check Server ID Web1
         if: ${{ fromJSON(steps.get_workflow_vars.outputs).webServer }} == 'WEB1'
