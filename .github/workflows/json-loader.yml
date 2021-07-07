@@ -30,9 +30,9 @@ jobs:
 
       - name: Check Server ID Web1
         env: 
-          IP_DEV1: secrets.IP_DEV1
-          IP_DEV2: secrets.IP_DEV2
-          IP_DEV3: secrets.IP_DEV3
+          IP_DEV1: ${{ secrets.IP_DEV1 }}
+          IP_DEV2: ${{ secrets.IP_DEV2 }}
+          IP_DEV3: ${{ secrets.IP_DEV3 }}
         run: |
           webServerId=${{ fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer }}
 
