@@ -48,7 +48,5 @@ jobs:
             echo "No Web Server matches"
           fi
 
-          echo "Set web server to $WEB_SERVER"
-
       - name: Echo The Server IP
         run: echo "${{ env.WEB_SERVER }}"
