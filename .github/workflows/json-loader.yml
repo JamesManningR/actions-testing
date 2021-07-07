@@ -1,6 +1,7 @@
 name: Deploy to DEV
 on:
   workflow_dispatch:
+  push:
       
 jobs:
   build:
@@ -25,22 +26,22 @@ jobs:
           echo "::set-output name=workflowConfigJson::$wfconfig"
 
       - name: Echo The JSON
-        run: echo "${{ fromJSON(steps.get_workflow_vars.outputs).webServer }}"
+        run: echo "${{ fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer }}"
 
       - name: Check Server ID Web1
-        if: ${{ fromJSON(steps.get_workflow_vars.outputs).webServer }} == 'WEB1'
+        if: fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer == 'WEB1'
         env: 
           WEB_SERVER: ${{ secrets.IP_WEB1 }}
         run: echo "Set web server to Web1"
 
       - name: Check Server ID Web1
-        if: ${{ fromJSON(steps.get_workflow_vars.outputs).webServer }} == 'WEB2'
+        if: fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer == 'WEB2'
         env: 
           WEB_SERVER: ${{ secrets.IP_WEB2 }}
         run: echo "Set web server to Web2"
 
       - name: Check Server ID Web1
-        if: ${{ fromJSON(steps.get_workflow_vars.outputs).webServer }} == 'WEB3'
+        if: fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer == 'WEB3'
         env: 
           WEB_SERVER: ${{ secrets.IP_WEB3 }}
         run: echo "Set web server to Web3"
