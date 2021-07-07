@@ -14,17 +14,21 @@ jobs:
         with: 
           node-version: '14'
           check-latest: true
+
       - name: Check Server ID Web1
         if: ${{ fromJSON(steps.get_workflow_vars.outputs).webServer == "WEB1" }}
         env: 
           WEB_SERVER: ${{ secrets.IP_WEB1 }}
+        run: echo "Set web server to Web1"
 
       - name: Check Server ID Web1
         if: ${{ fromJSON(steps.get_workflow_vars.outputs).webServer == "WEB2" }}
         env: 
           WEB_SERVER: ${{ secrets.IP_WEB2 }}
+        run: echo "Set web server to Web2"
 
       - name: Check Server ID Web1
         if: ${{ fromJSON(steps.get_workflow_vars.outputs).webServer == "WEB3" }}
         env: 
           WEB_SERVER: ${{ secrets.IP_WEB3 }}
+        run: echo "Set web server to Web3"
