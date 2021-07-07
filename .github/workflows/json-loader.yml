@@ -24,6 +24,9 @@ jobs:
           #output the wfconfig
           echo "::set-output name=workflowConfigJson::$wfconfig"
 
+      - name: Echo The JSON
+        run: echo "${{ fromJSON(steps.get_workflow_vars.outputs).webServer }}"
+
       - name: Check Server ID Web1
         if: ${{ fromJSON(steps.get_workflow_vars.outputs).webServer }} == 'WEB1'
         env: 
