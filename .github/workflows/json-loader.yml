@@ -29,22 +29,22 @@ jobs:
         run: echo "${{ fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer }}"
 
       - name: Check Server ID Web1
-        if: fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer == 'WEB1'
-        env: 
-          WEB_SERVER: ${{ secrets.IP_WEB1 }}
-        run: echo "Set web server to Web1"
+        run: |
+          webServerId=${fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer}
+          if [[ $webServer == "WEB1" ]]; then
+            echo WEB_SERVER=${{ secrets.IP_DEV1 }}
+          
+          else if [[ $webServer == "WEB2" ]]; then
+            echo WEB_SERVER=${{ secrets.IP_DEV2 }}
+          
+          else if [[ $webServer == "WEB3" ]]; then
+            echo WEB_SERVER=${{ secrets.IP_DEV3 }}
+          
+          else
+            set -eo pipefail
+          fi
 
-      - name: Check Server ID Web2
-        if: fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer == 'WEB2'
-        env: 
-          WEB_SERVER: ${{ secrets.IP_WEB2 }}
-        run: echo "Set web server to Web2"
+          echo "Set web server to $WEB_SERVER"
 
-      - name: Check Server ID Web3
-        if: fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer == 'WEB3'
-        env: 
-          WEB_SERVER: ${{ secrets.IP_WEB3 }}
-        run: echo "Set web server to Web3"
-
-      - name: Echo The JSON
+      - name: Echo The Server IP
         run: echo "${{ env.WEB_SERVER }}"
