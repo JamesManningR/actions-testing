@@ -56,4 +56,4 @@ jobs:
 
       - name: echo information
         run: |
-          echo "${{ env.GITHUB_REPOSITORY }}${{ env.PATH_SUFFIX }}"
+          echo "${{ github.event.repository.name }}${{ env.PATH_SUFFIX }}"
