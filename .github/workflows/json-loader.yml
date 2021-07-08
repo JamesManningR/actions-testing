@@ -35,6 +35,7 @@ jobs:
           IP_WEB3: ${{ secrets.IP_WEB3 }}
         run: |
           webServerId=${{ fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).webServer }}
+          pathSuffix=${{ fromJSON(steps.get_workflow_vars.outputs.workflowConfigJson).pathSuffix }}
 
           echo "$IP_WEB1"
 
@@ -51,5 +52,8 @@ jobs:
             echo "No Web Server matches"
           fi
 
-      - name: Echo The Server IP
-        run: echo "${{ env.WEB_SERVER }}"
+          echo "PATH_SUFFIX=$pathSuffix" >> $GITHUB_ENV
+
+      - name: echo information
+        run: |
+          echo "${{ env.GITHUB_REPOSITORY }}${{ env.PATH_SUFFIX }}"
